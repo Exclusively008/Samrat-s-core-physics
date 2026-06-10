@@ -1,0 +1,246 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Class 12 - Samrat's core physics</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="page-header">
+    <div class="container page-header-inner">
+      <a class="brand" href="batches.html">← Batches</a>
+
+      <div class="contact-corner" aria-label="Mobile number">
+        <a class="contact-link" href="tel:+918981638647">+91 8981638647</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page">
+    <div class="detail-head">
+      <div>
+        <h2 class="page-title">Class 12 Batch</h2>
+        <p class="muted">Fill details and click Purchase.</p>
+      </div>
+    </div>
+
+    <div class="detail">
+      <div class="detail-item"><strong>Location:</strong> <span id="loc">Your location here</span></div>
+      <div class="detail-item">
+        <strong>Time:</strong> <span id="time">Your batch time here</span>
+      </div>
+      <div class="detail-item"><strong>Fees:</strong> <span id="fees">₹ 0 (update)</span></div>
+
+      <div class="detail-item" style="margin-top:14px;">
+        <strong>Select time:</strong>
+        <div id="timeChoicesRoot" class="attendance-checkboxes" style="margin-top:10px; grid-template-columns: repeat(1, minmax(0,1fr));"></div>
+      </div>
+    </div>
+
+    <section class="purchase">
+      <h3>Purchase / Enquire</h3>
+
+      <form id="purchaseForm" class="form" onsubmit="return false;">
+        <label>
+          Student name
+          <input name="student" type="text" placeholder="Enter student name" required />
+        </label>
+
+        <label>
+          Phone number (optional)
+          <input name="phone" type="tel" placeholder="Enter phone number" />
+        </label>
+
+        <label>
+          Message (optional)
+          <textarea name="note" rows="3" placeholder="Any question about location/time/fees?"></textarea>
+        </label>
+
+        <button class="btn btn-primary" type="button" id="purchaseBtn">
+          Purchase (WhatsApp)
+        </button>
+      </form>
+    </section>
+
+    <section class="attendance-section" id="attendanceRoot">
+      <h3 class="attendance-title">Attendance (Class 12)</h3>
+      <p class="attendance-subtitle">Students can view. Admin can update.</p>
+
+      <div id="attendanceTableWrap"></div>
+
+      <div class="attendance-admin-bar">
+        <div class="attendance-admin-banner" id="attendanceAdminBanner">Admin mode enabled</div>
+        <div style="display:flex; gap:10px; flex-wrap:wrap;">
+          <input id="attendanceAdminPassword" type="password" placeholder="Admin password" />
+          <button class="btn-mini" id="attendanceAdminLoginBtn" type="button">Admin Login</button>
+          <button class="btn-mini" id="attendanceAdminLogoutBtn" type="button" style="display:none;">Logout</button>
+        </div>
+      </div>
+
+      <div class="attendance-admin-editor" id="attendanceAdminEditor">
+        <div class="attendance-grid">
+          <div class="attendance-row">
+            <label>
+              Add students (comma/new line)
+              <textarea id="attendanceStudentsInput" rows="3" placeholder="e.g. Rahul, Riya\nAman\nSara"></textarea>
+            </label>
+            <div class="attendance-btn-row">
+              <button class="btn-mini" id="attendanceAddStudentsBtn" type="button">Add Students</button>
+            </div>
+          </div>
+
+          <div class="attendance-row">
+            <label>
+              Mark attendance for date
+              <input id="attendanceDateInput" type="date" />
+            </label>
+
+            <div id="attendanceStudentList" class="attendance-checkboxes"></div>
+
+            <div class="attendance-btn-row">
+              <button class="btn-mini" id="attendanceSaveBtn" type="button">Save Attendance</button>
+            </div>
+
+            <div class="attendance-btn-row">
+              <label style="display:flex; gap:10px; align-items:center;">
+                <span style="font-weight:800;">Delete attendance of a student</span>
+                <select id="attendanceDeleteStudentSelect" style="flex:1; min-width:180px;">
+                  <option value="">-- Select student --</option>
+                </select>
+                <button class="btn-mini" id="attendanceDeleteStudentBtn" type="button">Delete</button>
+
+              </label>
+            </div>
+
+            <div id="attendanceAdminMessage" style="margin-top:8px; color: var(--muted); font-weight:800;"></div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Samrat's core physics</span>
+      <a href="tel:+918981638647">Call</a>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+  <script>
+    const BATCH_SCHEDULE = {
+      'KESTHOPUR': ['SUNDAY 11:45 A.M', 'THURSDAY 6:45 P.M', 'SUNDAY 5:00 P.M'],
+      'COLLEGE STREET': ['TUESDAY 7:30 A.M'],
+      'KASHIBOSE LANE': ['FRIDAY 7:00 P.M'],
+      'RAGARHAT': ['TUESDAY 7:00 P.M', 'FRIDAY 7:30 A.M']
+    };
+
+    function setSelectedTime(time) {
+      window.BATCH_META.time = time;
+      const timeEl = document.getElementById('time');
+      if (timeEl) timeEl.textContent = window.BATCH_META.time;
+    }
+
+    function renderTimeChoices({ times, selectedLocation }) {
+      const root = document.getElementById('timeChoicesRoot');
+      if (!root) return;
+
+      if (!Array.isArray(times) || !times.length) {
+        root.innerHTML = '<div class="attendance-hint">No time options found.</div>';
+        return;
+      }
+
+      const name = `timeChoice_${selectedLocation}`.replace(/\s+/g, '_');
+      const current = window.BATCH_META.time;
+      let defaultValue = times[0];
+      if (current && times.includes(current)) defaultValue = current;
+
+      root.innerHTML = times
+        .map((t, idx) => {
+          const id = `timeChoice_${name}_${idx}`;
+          const checked = t === defaultValue ? 'checked' : '';
+          return `
+            <label class="time-choice">
+              <input type="radio" name="${name}" id="${id}" value="${t}" ${checked} />
+              <span>${t}</span>
+            </label>
+          `;
+        })
+        .join('');
+
+      setSelectedTime(defaultValue);
+
+      root.querySelectorAll('input[type="radio"]').forEach((inp) => {
+        inp.addEventListener('change', (e) => {
+          if (e.target && e.target.value) setSelectedTime(e.target.value);
+        });
+      });
+    }
+
+    window.BATCH_META = {
+      className: 'Class 12',
+      location: 'Your location here',
+      time: 'Your batch time here',
+      fees: '₹ 0 (update)'
+    };
+
+    document.getElementById('loc').textContent = window.BATCH_META.location;
+    document.getElementById('time').textContent = window.BATCH_META.time;
+    document.getElementById('fees').textContent = window.BATCH_META.fees;
+
+    setupWhatsAppPurchase({
+      whatsappNumber: '+91 8981638647',
+      buttonId: 'purchaseBtn',
+      formId: 'purchaseForm'
+    });
+
+    // Attendance page init (public view + admin editor)
+    (function () {
+      const params = new URLSearchParams(window.location.search);
+      const selectedLocation = params.get('location');
+
+      const locEl = document.getElementById('loc');
+      const timeEl = document.getElementById('time');
+
+      if (selectedLocation) {
+        window.BATCH_META.location = selectedLocation;
+
+        const times = BATCH_SCHEDULE[selectedLocation] || [];
+        renderTimeChoices({ times, selectedLocation });
+
+        const defaultTime = (Array.isArray(times) && times.length) ? times[0] : window.BATCH_META.time;
+        window.BATCH_META.time = defaultTime;
+
+        if (locEl) locEl.textContent = window.BATCH_META.location;
+        if (timeEl) timeEl.textContent = window.BATCH_META.time;
+      } else {
+        // Location not selected: disable time choice UI
+        if (locEl) locEl.textContent = 'Location not selected';
+        if (timeEl) timeEl.textContent = '-';
+
+        const root = document.getElementById('timeChoicesRoot');
+        if (root) {
+          root.innerHTML = '<div class="attendance-hint">Location is not selected. Go back to Batches and pick a location-enabled link in the future.</div>';
+        }
+      }
+
+      if (typeof initAttendancePage === 'function') {
+        // Attendance storage requires a location key.
+        // If location is missing, we still initialize to avoid crashing, but attendance will be empty until a location is provided.
+        initAttendancePage({ className: window.BATCH_META.className, location: window.BATCH_META.location });
+      }
+    })();
+
+  </script>
+</body>
+</html>
+
+
+
+
+
+
+

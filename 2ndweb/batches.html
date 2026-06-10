@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Batches - Samrat's core physics</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="page-header">
+    <div class="container page-header-inner">
+      <a class="brand" href="index.html">Samrat's core physics</a>
+
+      <div class="contact-corner" aria-label="Mobile number">
+        <a class="contact-link" href="tel:+918981638647">+91 8981638647</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h2 class="page-title">Choose your batch</h2>
+    <p class="muted">Click a class to view location, time and fees.</p>
+
+
+
+    <section class="grid">
+      
+      <div class="detail" style="grid-column:1/-1; margin-bottom:14px;">
+        <div class="detail-item" style="margin:0;">
+          <strong>Choose your location:</strong>
+          <span class="muted">After choosing, tap a class.</span>
+        </div>
+        <div style="display:grid; grid-template-columns: repeat(2, minmax(0,1fr)); gap:10px; margin-top:12px;">
+          <button class="btn-mini" type="button" data-loc="KESTHOPUR">KESTHOPUR</button>
+          <button class="btn-mini" type="button" data-loc="HATIBAGAN">HATIBAGAN</button>
+          <button class="btn-mini" type="button" data-loc="COLLEGE STREET">COLLEGE STREET</button>
+          <button class="btn-mini" type="button" data-loc="KASHIBOSE LANE">KASHIBOSE LANE</button>
+          <button class="btn-mini" type="button" data-loc="RAGARHAT">RAGARHAT</button>
+        </div>
+        <div style="margin-top:10px; color: var(--muted); font-weight:800;" id="selectedLocText">No location selected yet.</div>
+      </div>
+      <a class="card" data-class="class9" href="class9.html">
+        <h3>Class 9</h3>
+        <p>Concept foundation + problem practice</p>
+        <span class="pill">Details</span>
+      </a>
+
+      <a class="card" data-class="class10" href="class10.html">
+        <h3>Class 10</h3>
+        <p>Physics basics + strong problem solving</p>
+        <span class="pill">Details</span>
+      </a>
+
+      <a class="card" data-class="class11" href="class11.html">
+        <h3>Class 11</h3>
+        <p>Mechanics foundation for future exams</p>
+        <span class="pill">Details</span>
+      </a>
+
+      <a class="card" data-class="class12" href="class12.html">
+        <h3>Class 12</h3>
+        <p>Concept clarity for board preparation</p>
+        <span class="pill">Details</span>
+      </a>
+    </section>
+  </main>
+
+
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Samrat's core physics</span>
+      <a href="tel:+918981638647">Call</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    // Location picker: store selected location and append ?location=... to class links.
+    (function () {
+      const locButtons = document.querySelectorAll('button[data-loc]');
+      const selectedLocText = document.getElementById('selectedLocText');
+      const classCards = document.querySelectorAll('a.card[data-class]');
+
+      function applyLocationToCards(location) {
+        const encoded = encodeURIComponent(location);
+        classCards.forEach((a) => {
+          const cls = a.getAttribute('data-class');
+          const base = a.getAttribute('href').split('?')[0];
+          a.setAttribute('href', `${base}?location=${encoded}`);
+        });
+      }
+
+      locButtons.forEach((btn) => {
+        btn.addEventListener('click', () => {
+          const location = btn.getAttribute('data-loc');
+          if (!location) return;
+          try { localStorage.setItem('selectedLocation', location); } catch {}
+          if (selectedLocText) selectedLocText.textContent = `Selected: ${location}`;
+          applyLocationToCards(location);
+        });
+      });
+
+      try {
+        const saved = localStorage.getItem('selectedLocation');
+        if (saved) {
+          if (selectedLocText) selectedLocText.textContent = `Selected: ${saved}`;
+          applyLocationToCards(saved);
+        }
+      } catch {}
+    })();
+  </script>
+</body>
+</html>
+
