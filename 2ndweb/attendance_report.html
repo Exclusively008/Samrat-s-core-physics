@@ -1,0 +1,149 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Attendance Report - Samrat's core physics</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="page-header">
+    <div class="container page-header-inner">
+      <a class="brand" href="index.html">← Home</a>
+      <div class="contact-corner" aria-label="Mobile number">
+        <a class="contact-link" href="tel:+918981638647">+91 8981638647</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h2 class="page-title">Attendance Report</h2>
+    <p class="muted">View attendance tables based on class and location.</p>
+
+    <div class="detail" style="margin-top:18px;">
+      <button class="btn-mini" type="button" id="installAppBtn" style="display:none;">Install App</button>
+
+      <div class="attendance-admin-grid" style="grid-template-columns: 1fr 1fr; gap: 12px;">
+        <div class="detail-item" style="margin:0;">
+          <strong>Class:</strong>
+          <select id="reportClassSelect" style="width:100%;">
+            <option value="">-- Select class --</option>
+            <option value="Class 9">Class 9</option>
+            <option value="Class 10">Class 10</option>
+            <option value="Class 11">Class 11</option>
+            <option value="Class 12">Class 12</option>
+          </select>
+        </div>
+
+        <div class="detail-item" style="margin:0;">
+          <strong>Location:</strong>
+          <select id="reportLocationSelect" style="width:100%;">
+            <option value="">-- Select location --</option>
+            <option value="KESTHOPUR">KESTHOPUR</option>
+            <option value="HATIBAGAN">HATIBAGAN</option>
+            <option value="RAJARHAT">RAJARHAT</option>
+            <option value="KASHIBOSE LANE">KASHIBOSE LANE</option>
+            <option value="COLLEGE STREET">COLLEGE STREET</option>
+          </select>
+        </div>
+      </div>
+
+      <div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:12px;">
+        <button class="btn-mini" type="button" id="reportOpenBtn">Open report page</button>
+        <a class="btn-mini" href="attendance_sheets.html">Open all sheets</a>
+      </div>
+
+      <div id="reportError" class="attendance-hint" style="margin-top:10px; color: var(--muted); font-weight: 800;"></div>
+    </div>
+
+    <section class="attendance-section" style="margin-top:18px;">
+      <h3 class="attendance-title" style="margin:0 0 6px;">Preview</h3>
+      <p class="attendance-subtitle" style="margin:0 0 14px;">Loads the Class page with the selected location. Attendance table renders inside that page.</p>
+      <iframe
+        id="reportFrame"
+        title="Attendance report preview"
+        style="width:100%; height: 720px; border: 1px solid rgba(255,255,255,0.12); border-radius: 14px; background: rgba(0,0,0,0.18);"
+      ></iframe>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Samrat's core physics</span>
+      <a href="tel:+918981638647">Call</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+
+    const classToPage = {
+      'Class 9': 'class9.html',
+      'Class 10': 'class10.html',
+      'Class 11': 'class11.html',
+      'Class 12': 'class12.html'
+    };
+
+    const classSelect = document.getElementById('reportClassSelect');
+    const locationSelect = document.getElementById('reportLocationSelect');
+    const frame = document.getElementById('reportFrame');
+    const errEl = document.getElementById('reportError');
+    const openBtn = document.getElementById('reportOpenBtn');
+
+    function renderPreview() {
+      const cls = classSelect.value;
+      const loc = locationSelect.value;
+
+      if (!cls || !loc) {
+        errEl.textContent = 'Select both class and location to preview.';
+        frame.removeAttribute('src');
+        return;
+      }
+
+      errEl.textContent = '';
+      const page = classToPage[cls];
+      const url = page + '?location=' + encodeURIComponent(loc);
+      frame.src = url;
+    }
+
+    classSelect.addEventListener('change', renderPreview);
+    locationSelect.addEventListener('change', renderPreview);
+
+    // Show install button for PWA
+    let deferredPrompt = null;
+    window.addEventListener('beforeinstallprompt', (e) => {
+      e.preventDefault();
+      deferredPrompt = e;
+      const btn = document.getElementById('installAppBtn');
+      if (btn) btn.style.display = 'inline-flex';
+    });
+
+    const installBtn = document.getElementById('installAppBtn');
+    if (installBtn) {
+      installBtn.addEventListener('click', async () => {
+        if (!deferredPrompt) return;
+        deferredPrompt.prompt();
+        try {
+          await deferredPrompt.userChoice;
+        } catch (err) {}
+        deferredPrompt = null;
+        installBtn.style.display = 'none';
+      });
+    }
+
+
+    openBtn.addEventListener('click', () => {
+      const cls = classSelect.value;
+      const loc = locationSelect.value;
+      if (!cls || !loc) {
+        errEl.textContent = 'Select both class and location.';
+        return;
+      }
+      const page = classToPage[cls];
+      const url = page + '?location=' + encodeURIComponent(loc);
+      window.open(url, '_blank');
+    });
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,461 @@
+:root{
+  --bg:#070A12;
+  --panel: rgba(255,255,255,0.06);
+  --panel-2: rgba(255,255,255,0.09);
+  --text:#EAF0FF;
+  --muted: rgba(234,240,255,0.72);
+  --brand:#6AE4FF;
+  --brand-2:#9B7BFF;
+  --ring: rgba(106,228,255,0.35);
+}
+
+*{box-sizing:border-box}
+html,body{height:100%}
+body{
+  margin:0;
+  font-family: ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji","Segoe UI Emoji";
+  background: radial-gradient(1200px 800px at 20% 10%, rgba(155,123,255,0.22), transparent 60%),
+              radial-gradient(1000px 700px at 85% 20%, rgba(106,228,255,0.18), transparent 55%),
+              var(--bg);
+  color:var(--text);
+}
+
+a{color:inherit}
+
+.container{width:min(980px, 92vw); margin:0 auto;}
+
+.hero{
+  min-height: calc(100vh - 60px);
+  display:flex;
+  align-items:center;
+  padding:40px 0;
+  position:relative;
+}
+
+.contact-corner{
+  position:fixed;
+  top:14px;
+  right:14px;
+  z-index:10;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.12);
+  backdrop-filter: blur(8px);
+  border-radius: 999px;
+}
+
+.contact-link{
+  display:inline-block;
+  padding:10px 14px;
+  text-decoration:none;
+  font-weight:700;
+  letter-spacing:0.2px;
+}
+
+.contact-link:hover{background: rgba(255,255,255,0.06)}
+
+.brand{font-weight:800; text-decoration:none;}
+
+h1{
+  font-size: clamp(2rem, 4vw, 3rem);
+  margin:0;
+  line-height:1.1;
+  letter-spacing:0.2px;
+}
+
+.lead{
+  margin:14px 0 0;
+  font-size: clamp(1rem, 1.7vw, 1.15rem);
+  color: var(--muted);
+  max-width: 62ch;
+}
+
+.actions{margin-top:24px;}
+
+.btn{
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:10px;
+  padding:14px 20px;
+  border-radius: 14px;
+  background: linear-gradient(135deg, rgba(106,228,255,0.22), rgba(155,123,255,0.20));
+  border: 1px solid rgba(255,255,255,0.14);
+  text-decoration:none;
+  font-weight:800;
+  box-shadow: 0 18px 60px rgba(0,0,0,0.25);
+  transition: transform .15s ease, background .15s ease, border-color .15s ease;
+}
+.btn:hover{transform: translateY(-1px); border-color: rgba(106,228,255,0.35)}
+
+.btn-primary{
+  width:100%;
+  background: linear-gradient(135deg, rgba(106,228,255,0.35), rgba(155,123,255,0.28));
+}
+
+.trust{
+  margin-top:28px;
+  display:grid;
+  grid-template-columns: repeat(3, minmax(0,1fr));
+  gap:14px;
+}
+
+@media (max-width: 720px){
+  .trust{grid-template-columns: 1fr;}
+}
+
+.trust-item{
+  padding:14px;
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.10);
+  border-radius: 16px;
+}
+
+.trust-item strong{display:block; font-size:0.98rem}
+.trust-item span{color:var(--muted); font-size:0.92rem}
+
+.page-header{padding:18px 0;}
+.page-header-inner{display:flex; align-items:center; justify-content:space-between;}
+
+.page{padding:24px 0 40px;}
+.page-title{margin:10px 0 6px; font-size: 1.7rem;}
+.muted{color:var(--muted)}
+
+.grid{margin-top:18px; display:grid; grid-template-columns: repeat(3, minmax(0,1fr)); gap:14px;}
+@media (max-width: 900px){.grid{grid-template-columns: 1fr;}}
+
+.card{
+  text-decoration:none;
+  padding:18px;
+  border-radius: 18px;
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.12);
+  transition: transform .15s ease, border-color .15s ease;
+  position:relative;
+  overflow:hidden;
+}
+
+.card::before{
+  content:"";
+  position:absolute;
+  inset:-2px;
+  background: radial-gradient(600px 250px at 10% 10%, rgba(106,228,255,0.18), transparent 60%);
+  opacity:0;
+  transition: opacity .15s ease;
+}
+
+.card:hover{transform: translateY(-2px); border-color: rgba(106,228,255,0.35)}
+.card:hover::before{opacity:1}
+
+.card h3{margin:0 0 8px; font-size:1.2rem;}
+.card p{margin:0 0 14px; color:var(--muted)}
+.pill{display:inline-block; padding:8px 10px; border-radius:999px; border:1px solid rgba(255,255,255,0.12); background: rgba(255,255,255,0.05); font-weight:700;}
+
+.detail{
+  margin-top:14px;
+  padding:16px;
+  border-radius: 18px;
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+.detail-item{margin:10px 0;}
+.detail-item strong{display:inline-block; width:90px; color: var(--text)}
+
+.purchase{
+  margin-top:18px;
+  padding:18px;
+  border-radius: 18px;
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.purchase h3{margin:0 0 12px;}
+
+.form{display:grid; grid-template-columns: 1fr; gap:12px;}
+label{display:grid; gap:6px; font-weight:700; color: rgba(234,240,255,0.92)}
+input, textarea{
+  width:100%;
+  padding:12px 12px;
+  border-radius: 14px;
+  border: 1px solid rgba(255,255,255,0.14);
+  background: rgba(0,0,0,0.25);
+  color: var(--text);
+  outline:none;
+}
+input:focus, textarea:focus{border-color: rgba(106,228,255,0.45); box-shadow: 0 0 0 4px var(--ring)}
+textarea{resize:vertical}
+
+.footer{padding:22px 0; border-top: 1px solid rgba(255,255,255,0.10)}
+.footer-inner{display:flex; align-items:center; justify-content:space-between; color: var(--muted)}
+.footer-inner a{color: var(--brand)}
+
+/* ------------------------------
+   Attendance UI
+------------------------------ */
+
+.attendance-section{
+  margin-top:20px;
+  padding:18px;
+  border-radius:18px;
+  background: var(--panel);
+  border: 1px solid rgba(255,255,255,0.12);
+}
+
+.attendance-title{margin:0 0 8px; font-size:1.35rem;}
+.attendance-subtitle{margin:0 0 14px; color: var(--muted);}
+
+.attendance-empty{color: var(--muted); padding:10px 0;}
+
+.attendance-admin-bar{
+  display:flex;
+  gap:10px;
+  align-items:center;
+  justify-content:space-between;
+  flex-wrap:wrap;
+  margin: 12px 0 0;
+}
+
+.attendance-admin-banner{
+  display:none;
+  padding:10px 12px;
+  border-radius:14px;
+  background: rgba(106,228,255,0.10);
+  border:1px solid rgba(106,228,255,0.25);
+  color: var(--brand);
+  font-weight:800;
+}
+
+.attendance-admin-editor{
+  display:none;
+  margin-top:14px;
+  padding-top:14px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+/* ------------------------------
+   Modern admin accordion pattern
+------------------------------ */
+
+.attendance-admin-card{
+  margin-top:14px;
+  border-radius:18px;
+  background: rgba(0,0,0,0.18);
+  border: 1px solid rgba(255,255,255,0.10);
+  overflow:hidden;
+}
+
+.attendance-admin-header{
+  width:100%;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:12px;
+  padding:14px 14px;
+  background: linear-gradient(135deg, rgba(106,228,255,0.16), rgba(155,123,255,0.10));
+  cursor:pointer;
+}
+
+.attendance-admin-header strong{
+  font-size:1.02rem;
+}
+
+.attendance-admin-toggle{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  color: var(--muted);
+  font-weight:900;
+}
+
+.attendance-admin-body{
+  display:none;
+  padding:14px;
+  border-top: 1px solid rgba(255,255,255,0.10);
+}
+
+.attendance-admin-card[data-open="true"] .attendance-admin-body{
+  display:block;
+}
+
+.attendance-admin-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:14px;
+}
+
+@media (min-width: 900px){
+  .attendance-admin-grid{grid-template-columns: 1fr 1fr;}
+}
+
+.attendance-admin-actions{
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  align-items:center;
+}
+
+.attendance-admin-status{
+  font-weight:900;
+  color: var(--muted);
+}
+
+.attendance-admin-status.ok{color: #bff5ff;}
+.attendance-admin-status.bad{color: #ffb3c6;}
+
+
+.attendance-grid{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:12px;
+}
+
+.attendance-row{
+  display:grid;
+  grid-template-columns: 1fr;
+  gap:8px;
+}
+
+.attendance-btn-row{display:flex; gap:10px; flex-wrap:wrap;}
+
+.btn-mini{
+  padding:10px 14px;
+  border-radius: 12px;
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.14);
+  color: var(--text);
+  font-weight:800;
+  cursor:pointer;
+}
+.btn-mini:hover{border-color: rgba(106,228,255,0.35)}
+
+.attendance-table-wrap{overflow:auto; border-radius:14px; border:1px solid rgba(255,255,255,0.10)}
+.attendance-table{width:100%; border-collapse:collapse; min-width: 680px;}
+.attendance-table th,
+.attendance-table td{
+  padding:10px 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  text-align:center;
+  color: var(--text);
+}
+.attendance-table th{color: rgba(234,240,255,0.92); font-weight:900}
+
+.attendance-sticky{position:sticky; left:0; background: rgba(7,10,18,0.92); z-index:2; text-align:left; padding-left:12px;}
+.attendance-student{text-align:left; padding-left:12px; white-space:nowrap;}
+
+.attendance-present{background: rgba(106,228,255,0.12); color: #b7f5ff;}
+.attendance-absent{background: rgba(255,106,138,0.10); color: #ffd0da;}
+.attendance-blank{color: rgba(234,240,255,0.35)}
+
+.attendance-checkbox{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:10px 12px;
+  border-radius:14px;
+  background: rgba(0,0,0,0.20);
+  border: 1px solid rgba(255,255,255,0.10);
+}
+.attendance-checkbox input{transform: scale(1.1);}
+.attendance-hint{color: var(--muted)}
+
+.attendance-checkboxes{
+  display:grid;
+  grid-template-columns: repeat(2, minmax(0,1fr));
+  gap:10px;
+}
+@media (max-width: 720px){
+  .attendance-checkboxes{grid-template-columns: 1fr;}
+}
+
+/* ------------------------------
+   Time choice UI (batch pages)
+------------------------------ */
+
+.time-choice{
+  display:flex;
+  align-items:center;
+  gap:10px;
+  padding:12px 12px;
+  border-radius:14px;
+  background: rgba(0,0,0,0.20);
+  border: 1px solid rgba(255,255,255,0.10);
+  cursor:pointer;
+  user-select:none;
+}
+
+.time-choice input[type="radio"]{
+  transform: scale(1.08);
+}
+
+.time-choice span{
+  color: var(--text);
+  font-weight: 850;
+  line-height: 1.2;
+}
+
+/* Thicker emphasis on the label when checked */
+.time-choice input[type="radio"]:checked + span{
+  color: #bff5ff;
+}
+
+.time-choice:has(input[type="radio"]:checked){
+  border-color: rgba(106,228,255,0.40);
+  box-shadow: 0 0 0 4px rgba(106,228,255,0.14) inset;
+  background: rgba(106,228,255,0.10);
+}
+
+/* Fallback for browsers without :has() */
+@supports not selector(:has(*)){
+  .time-choice input[type="radio"]:checked{
+    box-shadow: 0 0 0 4px rgba(106,228,255,0.14);
+  }
+}
+
+/* ------------------------------
+   Mobile polish
+------------------------------ */
+
+@media (max-width: 420px){
+  .hero{padding:28px 0;}
+  .contact-corner{top:10px; right:10px;}
+  .contact-link{padding:9px 12px; font-size: 0.95rem;}
+  .lead{font-size: 1rem;}
+  .page-title{font-size: 1.45rem;}
+}
+
+/* Ensure buttons/inputs remain usable on small screens */
+@media (max-width: 720px){
+  .btn{padding:13px 16px;}
+  input, textarea{padding:12px 12px;}
+}
+
+/* Attendance table readability scaling */
+.attendance-table th,
+.attendance-table td{
+  font-size: 0.95rem;
+}
+
+@media (max-width: 720px){
+  .attendance-table th,
+  .attendance-table td{
+    font-size: 0.88rem;
+    padding: 9px 6px;
+  }
+  .attendance-sticky{padding-left:10px;}
+  .attendance-student{padding-left:10px;}
+}
+
+@media (max-width: 420px){
+  .attendance-table th,
+  .attendance-table td{
+    font-size: 0.82rem;
+    padding: 8px 5px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce){
+  *{scroll-behavior:auto}
+  .btn, .card{transition:none !important}
+}
+
+
+

@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Attendance Sheets</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="page-header">
+    <div class="container page-header-inner">
+      <a class="brand" href="batches.html">← Batches</a>
+      <div class="contact-corner" aria-label="Mobile number">
+        <a class="contact-link" href="tel:+918981638647">+91 8981638647</a>
+      </div>
+    </div>
+  </header>
+
+  <main class="container page">
+    <h2 class="page-title">Attendance Sheets by Batch + Location</h2>
+    <p class="muted">Creates a dedicated attendance page for each location key.</p>
+
+    <div class="detail" style="margin-top:18px;">
+      <div style="display:grid; gap:10px;">
+        <div class="detail-item">
+          <strong>How to use</strong>
+          <div class="muted">Open a Class page and select a Location. Attendance data is stored per (class/location/time) in Firestore.</div>
+        </div>
+        <div class="detail-item">
+          <strong>Need multiple sheets?</strong>
+          <div class="muted">This site already renders a separate attendance table per location/time. This page provides quick links.</div>
+        </div>
+      </div>
+    </div>
+
+    <section class="grid" style="margin-top:18px;">
+      <a class="card" href="class9.html?location=KESTHOPUR"><h3>Class 9 · KESTHOPUR</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class9.html?location=HATIBAGAN"><h3>Class 9 · HATIBAGAN</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class9.html?location=RAJARHAT"><h3>Class 9 · RAJARHAT</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class9.html?location=KASHIBOSE%20LANE"><h3>Class 9 · KASHIBOSE LANE</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class9.html?location=COLLEGE%20STREET"><h3>Class 9 · COLLEGE STREET</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+
+      <a class="card" href="class10.html?location=KESTHOPUR"><h3>Class 10 · KESTHOPUR</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class10.html?location=HATIBAGAN"><h3>Class 10 · HATIBAGAN</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class10.html?location=RAJARHAT"><h3>Class 10 · RAJARHAT</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class10.html?location=KASHIBOSE%20LANE"><h3>Class 10 · KASHIBOSE LANE</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class10.html?location=COLLEGE%20STREET"><h3>Class 10 · COLLEGE STREET</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+
+      <a class="card" href="class11.html?location=KESTHOPUR"><h3>Class 11 · KESTHOPUR</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class11.html?location=HATIBAGAN"><h3>Class 11 · HATIBAGAN</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class11.html?location=RAJARHAT"><h3>Class 11 · RAJARHAT</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class11.html?location=KASHIBOSE%20LANE"><h3>Class 11 · KASHIBOSE LANE</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class11.html?location=COLLEGE%20STREET"><h3>Class 11 · COLLEGE STREET</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+
+      <a class="card" href="class12.html?location=KESTHOPUR"><h3>Class 12 · KESTHOPUR</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class12.html?location=HATIBAGAN"><h3>Class 12 · HATIBAGAN</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class12.html?location=RAJARHAT"><h3>Class 12 · RAJARHAT</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class12.html?location=KASHIBOSE%20LANE"><h3>Class 12 · KASHIBOSE LANE</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+      <a class="card" href="class12.html?location=COLLEGE%20STREET"><h3>Class 12 · COLLEGE STREET</h3><p>Open attendance sheet</p><span class="pill">View</span></a>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <span>© <span id="year"></span> Samrat's core physics</span>
+      <a href="tel:+918981638647">Call</a>
+    </div>
+  </footer>
+
+  <script>
+    document.getElementById('year').textContent = new Date().getFullYear();
+  </script>
+</body>
+</html>
+

@@ -1,0 +1,17 @@
+{
+  "name": "Samrat's Core Physics - Attendance",
+  "short_name": "Core Physics",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "background_color": "#070A12",
+  "theme_color": "#070A12",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20viewBox%3D%270%200%20128%20128%27%3E%3Crect%20width%3D%27128%27%20height%3D%27128%27%20rx%3D%2722%27%20fill%3D%27%23070A12%27/%3E%3Cpath%20d%3D%27M25%2066%20c12%20-28%2053%20-36%2076%20-20%20c-20%20-8%20-38%2012%20-44%2028%20c-6%2016%204%2032%2022%2036%20c-20%203%20-39%20-9%20-54%20-44z%27%20fill%3D%27%236AE4FF%27/%3E%3C/svg%3E",
+      "sizes": "128x128",
+      "type": "image/svg+xml"
+    }
+  ]
+}
+
