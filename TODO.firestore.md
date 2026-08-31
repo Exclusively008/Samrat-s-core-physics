@@ -1,7 +1,0 @@
-- [ ] Add Firebase SDK to class pages
-- [ ] Add Firebase init in script.js
-- [ ] Replace localStorage attendance storage with Firestore collection
-- [ ] Implement admin password gate UI (existing) but note: secure writes must be protected by Firestore rules
-- [ ] Add Firestore security rules (must allow public read, admin write/delete)
-- [ ] Add delete student record button (admin only)
-- [ ] Manual test with Firebase emulator / dev project
